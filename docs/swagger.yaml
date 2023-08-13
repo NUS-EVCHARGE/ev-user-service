@@ -1,0 +1,39 @@
+basePath: /api/v1
+definitions:
+  dto.User:
+    properties:
+      email:
+        example: e0014576@u.nus.edu
+        type: string
+      username:
+        example: sweiyang
+        type: string
+    type: object
+info:
+  contact: {}
+  title: User Service API
+  version: "1.0"
+paths:
+  /user/get_user_info:
+    get:
+      consumes:
+      - application/json
+      description: get user info by authentication header
+      parameters:
+      - description: jwtToken of the user
+        in: header
+        name: authentication
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: returns a user object
+          schema:
+            $ref: '#/definitions/dto.User'
+      summary: Get User Info from AWS cognito
+      tags:
+      - user
+schemes:
+- http
+swagger: "2.0"

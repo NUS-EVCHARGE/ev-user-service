@@ -8,6 +8,9 @@ import (
 type Config struct {
 	Dsn         string `mapstructure:"dsn"`
 	HttpAddress string `mapstructure:"http_address"`
+	Iss         string `mapstructure:"iss"`
+	UserPoolId  string `mapstructure:"user_pool_id"`
+	Region      string `mapstructure:"region"`
 }
 
 func ParseConfig(filename string) (*Config, error) {

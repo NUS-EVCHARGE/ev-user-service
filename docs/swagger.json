@@ -1,0 +1,60 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "title": "User Service API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api/v1",
+    "paths": {
+        "/user/get_user_info": {
+            "get": {
+                "description": "get user info by authentication header",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get User Info from AWS cognito",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "jwtToken of the user",
+                        "name": "authentication",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns a user object",
+                        "schema": {
+                            "$ref": "#/definitions/dto.User"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "e0014576@u.nus.edu"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "sweiyang"
+                }
+            }
+        }
+    }
+}

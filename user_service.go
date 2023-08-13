@@ -4,19 +4,19 @@ import (
 	"ev-user-service/config"
 	"ev-user-service/controller"
 	"ev-user-service/dao"
-	"ev-user-service/util"
+	_ "ev-user-service/docs"
+	"ev-user-service/handler"
 	"flag"
-	"fmt"
 	jwt "github.com/akhettar/gin-jwt-cognito"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"net/http"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 var (
-	r   *gin.Engine
-	err error
-	mw  *jwt.AuthMiddleware
+	r  *gin.Engine
+	mw *jwt.AuthMiddleware
 )
 
 func main() {
@@ -35,71 +35,39 @@ func main() {
 
 	// init db
 	if false {
-		err = dao.InitDb(configObj.Dsn)
+		err = dao.InitDB(configObj.Dsn)
 		if err != nil {
 			logrus.WithField("config", configObj).Error("failed to connect to database")
 			return
 		}
 	}
-
-	userController = controller.NewUserControl()
-
-	InitHttpServer(configObj.HttpAddress)
-}
-
-func InitHttpServer(httpAddress, iss, userPoolId, region string) {
-	r = gin.Default()
-	mw, err = jwt.AuthJWTMiddleware(iss, userPoolId, region)
+	mw, err = jwt.AuthJWTMiddleware(configObj.Iss, configObj.UserPoolId, configObj.Region)
 	if err != nil {
 		panic(err)
 	}
-	r.POST("/register", RegisterService))
+	controller.NewUserController()
+	InitHttpServer(configObj.HttpAddress)
+}
 
-	// proxy request
-	r.POST("/booking/create", mw.MiddlewareFunc(), func(context *gin.Context) {
+func InitHttpServer(httpAddress string) {
+	r = gin.Default()
+	registerHandler()
 
-	})
 	if err := r.Run(httpAddress); err != nil {
 		logrus.WithField("error", err).Errorf("http server failed to start")
 	}
 }
 
-func RegisterService(c *gin.Context) {
-	var (
-		url, _                 = c.GetQuery("url")
-		serviceName, _         = c.GetQuery("service_name")
-		command, _             = c.GetQuery("command")
-		method, _              = c.GetQuery("method")
-		serviceUrl, gatewayUrl = generateUrl(url, serviceName, command)
-	)
-	switch method {
-	// booking/create-booking
-	case "POST":
-		r.POST(gatewayUrl, mw.MiddlewareFunc(), func(context *gin.Context) {
-			var (
-				body map[string]interface{}
-				query map[string]string
-			)
+func registerHandler() {
+	// use to generate swagger ui
+	//	@BasePath	/api/v1
+	//	@title		User Service API
+	//	@version	1.0
+	//	@schemes	http
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-			err := c.BindJSON(&body)
-			if err != nil {
-				c.JSON(http.StatusBadRequest, CreateResponse("error binding json", fmt.Sprintf("%v", err)))
-				return
-			}
-
-			c.BindQuery(&query)
-			util.LaunchHttpRequest("POST", serviceUrl, )
-		})
-	}
-}
-
-func generateUrl(url, serviceName, command string) (string, string) {
-	return fmt.Sprintf("%v/%v/%v", url, serviceName, command), fmt.Sprintf("%v/%v", serviceName, command)
-}
-
-func CreateResponse(message, body string) map[string]interface{} {
-	return map[string]interface{}{
-		"message": message,
-		"body":    body,
-	}
+	// api versioning
+	v1 := r.Group("/api/v1")
+	// get user info handler
+	v1.GET("/user/get_user_info", mw.MiddlewareFunc(), handler.GetUserInfoHandler)
 }

@@ -1,3 +1,6 @@
 ---
 dsn: "root:root@tcp(localhost:3306)/ev-db?parseTime=true&charset=utf8mb4"
 http_address: "localhost:8080"
+iss: "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_ZIUwOvJUt"
+user_pool_id: "ap-southeast-1_ZIUwOvJUt"
+region: "ap-southeast-1"
