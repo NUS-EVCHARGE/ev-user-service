@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"ev-user-service/dto"
+	"github.com/NUS-EVCHARGE/ev-user-service/dto"
 	"github.com/golang-jwt/jwt"
 )
 
