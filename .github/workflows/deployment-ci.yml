@@ -12,7 +12,8 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches:
-      - ["main", "feature/dockerfile"]
+      - main
+      - feature/dockerfile
 
 env:
   AWS_REGION: ap-southeast-1                   # set this to your preferred AWS region, e.g. us-west-1
