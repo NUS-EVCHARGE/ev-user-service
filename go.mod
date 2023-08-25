@@ -1,4 +1,4 @@
-module ev-user-service
+module github.com/NUS-EVCHARGE/ev-user-service
 
 go 1.18
 
