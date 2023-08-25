@@ -1,5 +1,5 @@
 {
-    "family": "",
+    "family": "ev-charge-ecs-ev-user-service",
     "taskRoleArn": "",
     "executionRoleArn": "",
     "networkMode": "bridge",
@@ -31,7 +31,6 @@
             }
         }
     ],
-    "networkMode": "bridge",
     "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
