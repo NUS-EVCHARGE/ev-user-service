@@ -65,6 +65,8 @@ func registerHandler() {
 	//	@version	1.0
 	//	@schemes	http
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	// health check handler
+	r.GET("/user/home", handler.GetHealthCheckHandler)
 
 	// api versioning
 	v1 := r.Group("/api/v1")
