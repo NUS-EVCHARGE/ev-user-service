@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"ev-user-service/controller"
+	"github.com/NUS-EVCHARGE/ev-user-service/controller"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/sirupsen/logrus"

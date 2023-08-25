@@ -1,12 +1,12 @@
 package main
 
 import (
-	"ev-user-service/config"
-	"ev-user-service/controller"
-	"ev-user-service/dao"
-	_ "ev-user-service/docs"
-	"ev-user-service/handler"
 	"flag"
+	"github.com/NUS-EVCHARGE/ev-user-service/config"
+	"github.com/NUS-EVCHARGE/ev-user-service/controller"
+	"github.com/NUS-EVCHARGE/ev-user-service/dao"
+	_ "github.com/NUS-EVCHARGE/ev-user-service/docs"
+	"github.com/NUS-EVCHARGE/ev-user-service/handler"
 	jwt "github.com/akhettar/gin-jwt-cognito"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
