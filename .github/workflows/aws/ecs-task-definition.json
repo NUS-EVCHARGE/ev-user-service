@@ -1,5 +1,4 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:021983356533:task-definition/ev-charge-ecs-ev-user-service:4",
     "containerDefinitions": [
         {
             "name": "ev-user-service",
@@ -9,7 +8,7 @@
             "portMappings": [
                 {
                     "containerPort": 8080,
-                    "hostPort": 0,
+                    "hostPort": 8080,
                     "protocol": "tcp"
                 }
             ],
@@ -31,7 +30,6 @@
     "family": "ev-charge-ecs-ev-user-service",
     "networkMode": "bridge",
     "volumes": [],
-    "status": "ACTIVE",
     "requiresAttributes": [
         {
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
