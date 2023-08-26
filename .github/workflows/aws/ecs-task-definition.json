@@ -37,6 +37,9 @@
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
         },
         {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
             "name": "com.amazonaws.ecs.capability.ecr-auth"
         },
         {
