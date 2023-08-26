@@ -47,16 +47,15 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
         }
     ],
     "placementConstraints": [],
-    "compatibilities": [
-        "EXTERNAL",
-        "EC2"
-    ],
-    "requiresCompatibilities": [
-        "EC2"
-    ],
     "cpu": "256",
     "memory": "512"
 }
