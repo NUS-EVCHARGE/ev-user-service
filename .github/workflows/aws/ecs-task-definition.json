@@ -1,8 +1,5 @@
 {
-    "family": "ev-charge-ecs-ev-user-service",
-    "taskRoleArn": "",
-    "executionRoleArn": "",
-    "networkMode": "bridge",
+    "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:021983356533:task-definition/ev-charge-ecs-ev-user-service:4",
     "containerDefinitions": [
         {
             "name": "ev-user-service",
@@ -23,23 +20,21 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "ev-user-service",
+                    "awslogs-group": "ecs/ev-user-service",
                     "awslogs-region": "ap-southeast-1",
-                    "awslogs-stream-prefix": "container",
+                    "awslogs-stream-prefix": "ecs",
                     "mode": "non-blocking"
                 }
             }
         }
     ],
-    "revision": 1,
+    "family": "ev-charge-ecs-ev-user-service",
+    "networkMode": "bridge",
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
             "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "name": "ecs.capability.execution-role-awslogs"
         },
         {
             "name": "com.amazonaws.ecs.capability.ecr-auth"
@@ -48,13 +43,7 @@
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.task-iam-role"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
         }
     ],
     "placementConstraints": [],
