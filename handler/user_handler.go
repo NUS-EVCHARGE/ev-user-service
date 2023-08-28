@@ -8,6 +8,16 @@ import (
 	"net/http"
 )
 
+//	@Summary		Health Check
+//	@Description 	perform health check status
+//	@Tags 			Health Check
+//	@Accept 		json
+//	@Produce 		json
+//	@Success 		200	{object}	map[string]interface{}	"returns a welcome message"
+func GetHealthCheckHandler(c *gin.Context) {
+	c.JSON(http.StatusOK, CreateResponse("Welcome to ev-user-service", "ok"))
+	return
+}
 
 //	@Summary		Get User Info from AWS cognito
 //	@Description	get user info by authentication header

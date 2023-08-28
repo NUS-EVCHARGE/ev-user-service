@@ -1,0 +1,59 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "ev-user-service",
+            "image": "",
+            "cpu": 0,
+            "memoryReservation": 126,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "ecs/ev-user-service",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs",
+                    "mode": "non-blocking"
+                }
+            }
+        }
+    ],
+    "family": "ev-charge-ecs-ev-user-service",
+    "networkMode": "bridge",
+    "volumes": [],
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        }
+    ],
+    "placementConstraints": [],
+    "cpu": "256",
+    "memory": "512"
+}
