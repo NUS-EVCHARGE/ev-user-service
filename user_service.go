@@ -64,7 +64,7 @@ func registerHandler() {
 	//	@title		User Service API
 	//	@version	1.0
 	//	@schemes	http
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	r.GET("/user/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	// health check handler
 	r.GET("/user/home", handler.GetHealthCheckHandler)
 
