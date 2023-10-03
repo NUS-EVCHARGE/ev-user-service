@@ -4,7 +4,7 @@
             "name": "ev-user-service",
             "image": "",
             "cpu": 0,
-            "memoryReservation": 126,
+            "memoryReservation": 64,
             "portMappings": [
                 {
                     "containerPort": 8080,
