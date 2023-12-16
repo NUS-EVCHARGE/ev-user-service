@@ -1,7 +1,7 @@
 # Dockerfile References: https://docs.docker.com/engine/reference/builder/
 
 # Start from the latest golang base image
-FROM golang:latest
+FROM golang:1.21.5-alpine3.19
 
 # Add Maintainer Info
 # LABEL maintainer="Rajeev Singh <rajeevhub@gmail.com>"
@@ -20,7 +20,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o main .
+RUN CGO_ENABLE=0 go build -o main -ldflags="-s -w" .
 
 # Command to run the executable
 CMD ["./main"]
