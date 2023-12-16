@@ -54,6 +54,6 @@
         }
     ],
     "placementConstraints": [],
-    "cpu": "512",
-    "memory": "512"
+    "cpu": "128",
+    "memory": "128"
 }
