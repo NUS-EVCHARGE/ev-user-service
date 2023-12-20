@@ -22,7 +22,7 @@
                     "awslogs-group": "ecs/ev-user-service",
                     "awslogs-region": "ap-southeast-1",
                     "awslogs-stream-prefix": "ecs",
-                    "mode": "non-blocking"
+                    "mode": "blocking"
                 }
             }
         }
