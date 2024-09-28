@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/NUS-EVCHARGE/ev-user-service/controller"
+	"github.com/NUS-EVCHARGE/ev-user-service/controller/user"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"github.com/sirupsen/logrus"
@@ -15,7 +15,8 @@ import (
 //	@Produce 		json
 //	@Success 		200	{object}	map[string]interface{}	"returns a welcome message"
 func GetHealthCheckHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, CreateResponse("Welcome to ev-user-service", "ok"))
+	c.JSON(http.StatusOK, CreateResponse(
+		http.StatusOK,"Welcome to ev-user-service", "success"))
 	return
 }
 
@@ -29,7 +30,7 @@ func GetHealthCheckHandler(c *gin.Context) {
 //	@Param			authentication	header	string	yes	"jwtToken of the user"
 func GetUserInfoHandler(c *gin.Context) {
 	tokenStr, _ := c.Get("JWT_TOKEN")
-	user, err := controller.UserControllerObj.GetUserInfo(tokenStr.(*jwt.Token))
+	user, err := user.UserControllerObj.GetUserInfo(tokenStr.(*jwt.Token))
 	if err != nil {
 		// todo: change to common library
 		logrus.WithField("err", err).Error("error getting user")
@@ -40,9 +41,14 @@ func GetUserInfoHandler(c *gin.Context) {
 	return
 }
 
-func CreateResponse(message, body string) map[string]interface{} {
-	return map[string]interface{}{
-		"message": message,
-		"body":    body,
+
+func CreateResponse(statusCode int, data interface{}, message ...string) map[string]interface{} {
+	response := map[string]interface{}{
+		"status":  statusCode,
+		"data":    data,
 	}
+	if len(message) > 0 {
+		response["message"] = message[0]
+	}
+	return response
 }
