@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/NUS-EVCHARGE/ev-user-service/config"
-	"github.com/NUS-EVCHARGE/ev-user-service/controller"
+	"github.com/NUS-EVCHARGE/ev-user-service/controller/authentication"
+	"github.com/NUS-EVCHARGE/ev-user-service/controller/user"
 	"github.com/NUS-EVCHARGE/ev-user-service/dao"
 	_ "github.com/NUS-EVCHARGE/ev-user-service/docs"
 	"github.com/NUS-EVCHARGE/ev-user-service/handler"
@@ -47,7 +48,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	controller.NewUserController()
+	user.NewUserController()
+	authentication.NewAuthenticationController()
 	InitHttpServer(configObj.HttpAddress)
 }
 
@@ -82,4 +84,9 @@ func registerHandler() {
 	v1 := r.Group("/api/v1")
 	// get user info handler
 	v1.GET("/user/get_user_info", mw.MiddlewareFunc(), handler.GetUserInfoHandler)
+	v1.POST("/user/login", handler.LoginHandler)
+	v1.POST("/user/signup", handler.SignUpHandler)
+	v1.POST("/user/confirm", handler.ConfirmUserHandler)
+	v1.POST("/user/resend", handler.ResendChallengeCodeHandler)
+	v1.POST("/user/logout", handler.LogoutUserHandler)
 }

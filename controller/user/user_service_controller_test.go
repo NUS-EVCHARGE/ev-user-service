@@ -1,4 +1,4 @@
-package controller
+package user
 
 import (
 	"github.com/NUS-EVCHARGE/ev-user-service/dto"
