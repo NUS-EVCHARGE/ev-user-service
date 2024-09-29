@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-func AuthMiddlewareHandler(c *gin.Context) {
+func GetAccessToken(c *gin.Context) string {
 	// Retrieve the access token from the Authorization header
 	accessToken := c.GetHeader("Authorization")
 	if accessToken == "" {
 		logrus.Error("Authorization header is missing")
 		c.JSON(http.StatusBadRequest, CreateResponse(http.StatusBadRequest,"Authorization header is missing"))
 		c.Abort()
-		return
+		return ""
 	}
 
 	const bearerPrefix = "Bearer "
@@ -24,13 +24,19 @@ func AuthMiddlewareHandler(c *gin.Context) {
 		logrus.Error("Invalid authorization header format")
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization header format"})
 		c.Abort()
-		return
+		return ""
 	}
 
 	// Optional: remove "Bearer " prefix if it exists
 	if len(accessToken) > len(bearerPrefix) && accessToken[:len(bearerPrefix)] == bearerPrefix {
 		accessToken = accessToken[len(bearerPrefix):]
 	}
+	return accessToken
+}
+
+func AuthMiddlewareHandler(c *gin.Context) {
+	// Retrieve the access token from the Authorization header
+	accessToken := GetAccessToken(c)
 
 	userInfo, err := authentication.AuthenticationControllerObj.GetUserInfo(accessToken)
 	if err != nil {
