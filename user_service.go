@@ -2,22 +2,19 @@ package main
 
 import (
 	"flag"
-	"time"
-
 	"github.com/NUS-EVCHARGE/ev-user-service/config"
 	"github.com/NUS-EVCHARGE/ev-user-service/controller/authentication"
-	"github.com/NUS-EVCHARGE/ev-user-service/controller/encryption"
 	"github.com/NUS-EVCHARGE/ev-user-service/controller/user"
 	"github.com/NUS-EVCHARGE/ev-user-service/dao"
 	_ "github.com/NUS-EVCHARGE/ev-user-service/docs"
 	"github.com/NUS-EVCHARGE/ev-user-service/handler"
-	"github.com/NUS-EVCHARGE/ev-user-service/thirdparty"
 	jwt "github.com/akhettar/gin-jwt-cognito"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"time"
 )
 
 var (
@@ -53,9 +50,6 @@ func main() {
 	}
 	user.NewUserController()
 	authentication.NewAuthenticationController()
-	encryption.NewEncryptionController()
-	thirdparty.NewSecretManagerController()
-	//setupSecret()
 	InitHttpServer(configObj.HttpAddress)
 }
 
@@ -76,11 +70,6 @@ func InitHttpServer(httpAddress string) {
 	}
 }
 
-//func setupSecret() {
-//	privateKey := thirdparty.SecretManagerControllerObj.GetSecretFromManager("Sigin-PrivateKey")
-//	thirdparty.SecretManagerControllerObj.SetPrivateSignKey(*privateKey)
-//}
-
 func registerHandler() {
 	// use to generate swagger ui
 	//	@BasePath	/api/v1
@@ -100,5 +89,4 @@ func registerHandler() {
 	v1.POST("/user/confirm", handler.ConfirmUserHandler)
 	v1.POST("/user/resend", handler.ResendChallengeCodeHandler)
 	v1.POST("/user/logout", handler.LogoutUserHandler)
-	v1.GET("/user/public_key", handler.GetPublicKey)
 }

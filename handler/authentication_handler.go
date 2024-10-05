@@ -2,7 +2,6 @@ package handler
 
 import (
 	"github.com/NUS-EVCHARGE/ev-user-service/controller/authentication"
-	"github.com/NUS-EVCHARGE/ev-user-service/controller/encryption"
 	"github.com/NUS-EVCHARGE/ev-user-service/dto"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/gin-gonic/gin"
@@ -21,15 +20,6 @@ func LoginHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, CreateResponse(http.StatusBadRequest, "Error", "Wrong params"))
 		return
 	}
-
-	decryptPassword, err := encryption.EncryptionControllerObj.DecryptPassword(credentials.Password)
-	if err != nil {
-		logrus.WithField("err", err).Error("error decrypting password")
-		c.JSON(http.StatusBadRequest, CreateResponse(http.StatusBadRequest, "Error", "Invalid password"))
-		return
-	}
-
-	credentials.Password = decryptPassword
 
 	resp, err := authentication.AuthenticationControllerObj.LoginUser(credentials)
 	if err != nil {
