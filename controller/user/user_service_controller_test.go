@@ -2,7 +2,6 @@ package user
 
 import (
 	"github.com/NUS-EVCHARGE/ev-user-service/dto"
-	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -14,20 +13,10 @@ func setup() {
 func TestGetUserInfo(t *testing.T) {
 	setup()
 	var (
-		username = "sweiyang"
-		email = "e0014576@u.nus.edu"
+		username = "chiawz@gmail.com"
+		email = "chiawz@gmail.com"
 	)
-	mockToken := &jwt.Token{
-		Raw:       "",
-		Method:    nil,
-		Header:    nil,
-		Claims:    jwt.MapClaims{
-			"cognito:username": username,
-			"email": email,
-		},
-		Signature: "",
-		Valid:     false,
-	}
+	mockToken := "eyJraWQiOiJaUSsyRFwvRkFMSnh1dThiWGlEU1NxK0w1YTVuZ0xIbEY3MlBkRWgzKzhXMD0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI5OTBhZjVjYy1mMDUxLTcwZTgtOTQwNy03M2ZlODhmNTA0NzUiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGhlYXN0LTFfd25VY2ZNZ3FOIiwiY2xpZW50X2lkIjoib2c1dXEzbTJidmhmYmdoZjNqZDJxMTRqbSIsIm9yaWdpbl9qdGkiOiI2MDU5NTY1OC0yNTlkLTRjMjEtYTNiMC05OGY5ZDZlNzgyOTgiLCJldmVudF9pZCI6IjgyMDRmMDA2LWNhNmEtNDMxNy05YjAzLWU0Y2RmNTExNzAxNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3Mjc2MTkxNTAsImV4cCI6MTcyNzYyMjc1MCwiaWF0IjoxNzI3NjE5MTUwLCJqdGkiOiJmMTMxZTkzMS00NDM3LTRmYzAtODQ0OS0wNGRiMWM5MWFlZTciLCJ1c2VybmFtZSI6Ijk5MGFmNWNjLWYwNTEtNzBlOC05NDA3LTczZmU4OGY1MDQ3NSJ9.az6FAddnWQVI7LsfGhzHRIKvZ3SbJtMP_0GjPWGGTDHTCPX7NXeMNAwVvri58Hu9_LHiAZ6b_OLekyaxS5yfAvzLOOnE7fjwxP6Ah2VsR0mVK5-7BOJwb8xC6BVc4iud3KMxl1TwLZVDbE2diIfXp5-ZyDCsO-K6vTUmb6w3GMrzJlWVNTFJRRX8gG9UTkEW2HwQU_jBNFtfPlknoO1SNwxLH9uELxultDTBwoEp_7xaTd3Jj7WFNo-zTpULgju8K3pHHFtwC5bxe3OxjuCo1hw8IAl-n5B1KjIV9OCYaRFsadqgk08vPe8C9bluD2QExRBVonf01slznTI_JmteZg"
 	user,err := UserControllerObj.GetUserInfo(mockToken)
 
 	assert.Nil(t, err)

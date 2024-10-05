@@ -22,7 +22,13 @@
                     "awslogs-stream-prefix": "ecs",
                     "mode": "blocking"
                 }
-            }
+            },
+            "secrets": [
+                {
+                    "name": "Sigin-PrivateKey",
+                    "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:471112786163:secret:Sigin-PrivateKey-QCNkhW"
+                }
+            ]
         }
     ],
     "family": "ev-charge-ecs-ev-user-service",
