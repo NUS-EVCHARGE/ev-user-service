@@ -32,6 +32,8 @@
         }
     ],
     "family": "ev-charge-ecs-ev-user-service",
+    "taskRoleArn": "arn:aws:iam::471112786163:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::471112786163:role/ecsTaskExecutionRole",
     "networkMode": "bridge",
     "volumes": [],
     "requiresAttributes": [
