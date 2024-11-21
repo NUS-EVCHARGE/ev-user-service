@@ -3,7 +3,6 @@ package handler
 import (
 	"github.com/NUS-EVCHARGE/ev-user-service/controller/user"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )
@@ -29,15 +28,15 @@ func GetHealthCheckHandler(c *gin.Context) {
 //	@Router			/user/get_user_info [get]
 //	@Param			authentication	header	string	yes	"jwtToken of the user"
 func GetUserInfoHandler(c *gin.Context) {
-	tokenStr, _ := c.Get("JWT_TOKEN")
-	user, err := user.UserControllerObj.GetUserInfo(tokenStr.(*jwt.Token))
+	tokenStr := GetAccessToken(c)
+	userInfo, err := user.UserControllerObj.GetUserInfo(tokenStr)
 	if err != nil {
 		// todo: change to common library
 		logrus.WithField("err", err).Error("error getting user")
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, userInfo)
 	return
 }
 

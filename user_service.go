@@ -83,10 +83,13 @@ func registerHandler() {
 	// api versioning
 	v1 := r.Group("/api/v1")
 	// get user info handler
-	v1.GET("/user/get_user_info", mw.MiddlewareFunc(), handler.GetUserInfoHandler)
 	v1.POST("/user/login", handler.LoginHandler)
 	v1.POST("/user/signup", handler.SignUpHandler)
 	v1.POST("/user/confirm", handler.ConfirmUserHandler)
 	v1.POST("/user/resend", handler.ResendChallengeCodeHandler)
-	v1.POST("/user/logout", handler.LogoutUserHandler)
+
+	protectedV1 := r.Group("/api/v1")
+	protectedV1.Use(handler.AuthMiddlewareHandler)
+	protectedV1.GET("/user/get_user_info", handler.GetUserInfoHandler)
+	protectedV1.POST("/user/logout", handler.LogoutUserHandler)
 }
